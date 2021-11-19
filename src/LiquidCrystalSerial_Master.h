@@ -2,6 +2,7 @@
 #define LiquidCrystalSerial_Master_h
 
 #include <Arduino.h>
+#include <SoftwareSerial.h>
 
 //commands
 #define LCD_PAYLOAD_START 0x02
@@ -39,8 +40,8 @@
 class LiquidCrystalSerial_Master
 {
   public:
-    LiquidCrystalSerial_Master(HardwareSerial* lcdSerial, unsigned long lcdDelay=100);
-	void begin(unsigned long speed);
+    LiquidCrystalSerial_Master(SoftwareSerial* lcdSerial, unsigned long lcdDelay=100);
+	void lcdSerialBegin(unsigned long speed);
 	uint8_t lcdBegin(uint8_t col, uint8_t row);
 	uint8_t lcdClear();
 	uint8_t lcdHome();
@@ -79,7 +80,7 @@ class LiquidCrystalSerial_Master
 	uint8_t stringSize(char* data);
 	uint8_t sendCmd(uint8_t command);
 	uint8_t sendCmd(uint8_t command, byte* data, uint8_t nBytes);
-	HardwareSerial* lcdSerial;
+	SoftwareSerial* lcdSerial;
 	unsigned long lcdDelay;
 	struct lcdColRowStruct {
 		uint8_t col;

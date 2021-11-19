@@ -1,11 +1,11 @@
 #include <LiquidCrystalSerial_Master.h>
 
-LiquidCrystalSerial_Master::LiquidCrystalSerial_Master(HardwareSerial* lcdSerial, unsigned long lcdDelay){
+LiquidCrystalSerial_Master::LiquidCrystalSerial_Master(SoftwareSerial* lcdSerial, unsigned long lcdDelay){
 	LiquidCrystalSerial_Master::lcdSerial = lcdSerial;
 	LiquidCrystalSerial_Master::lcdDelay = lcdDelay;
 }
 
-void LiquidCrystalSerial_Master::begin(unsigned long speed){
+void LiquidCrystalSerial_Master::lcdSerialBegin(unsigned long speed){
 	LiquidCrystalSerial_Master::lcdSerial->begin(speed);
 }
 
