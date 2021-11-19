@@ -1,0 +1,32 @@
+#include <LiquidCrystalSerial_Master.h>
+
+LiquidCrystalSerial_Master lcsM(&Serial1);
+byte result[1];
+
+uint8_t a[][8] = {
+  {0x1F, 0x1F, 0x1E, 0x1E, 0x1C, 0x1C, 0x18, 0x18},
+  {0x00, 0x00, 0x1E, 0x1E, 0x1C, 0x1C, 0x18, 0x18},
+  {0x00, 0x00, 0x00, 0x00, 0x1C, 0x1C, 0x18, 0x18},
+  {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x18},
+  {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+};
+
+void setup() {
+  Serial.begin(9600);
+  lcsM.begin(9600);
+  lcsM.lcdBegin(20, 4);
+  lcsM.lcdClear();
+  lcsM.lcdLineWrap();
+  lcsM.lcdSetCursor(19, 0);
+  lcsM.lcdCreateChar(0, a[0]);
+  lcsM.lcdWrite((byte) 0x00);
+  lcsM.lcdCreateChar(0, a[1]);
+  lcsM.lcdCreateChar(0, a[2]);
+  lcsM.lcdCreateChar(0, a[3]);
+  lcsM.lcdCreateChar(0, a[4]);
+  lcsM.lcdSetCursor(0, 0);
+  lcsM.lcdPrint("Hello how are you doing today?");
+}
+
+void loop() {
+}
