@@ -82,6 +82,7 @@ class LiquidCrystalSerial_Master
 	uint8_t sendCmd(uint8_t command, byte* data, uint8_t nBytes);
 	SoftwareSerial* lcdSerial;
 	unsigned long lcdDelay;
+	uint8_t screenSize;
 	struct lcdColRowStruct {
 		uint8_t col;
 		uint8_t row;

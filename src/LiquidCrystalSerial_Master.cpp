@@ -10,6 +10,7 @@ void LiquidCrystalSerial_Master::lcdSerialBegin(unsigned long speed){
 }
 
 uint8_t LiquidCrystalSerial_Master::lcdBegin(uint8_t col, uint8_t row){
+	LiquidCrystalSerial_Master::screenSize = col * row;
 	lcdColRowStruct lcr = {col, row};
 	return sendCmd(LCD_BEGIN, (byte*) &lcr, sizeof(lcr));
 }
@@ -152,6 +153,10 @@ uint8_t LiquidCrystalSerial_Master::lcdOff(){
 uint8_t LiquidCrystalSerial_Master::stringSize(char* data){
 	uint8_t i = 0;
 	while(data[i] != 0x00){
+		if(i == LiquidCrystalSerial_Master::screenSize){
+			data[i] = 0x00;
+			break;
+		}
 		i++;
 	}
 	return i + 1;
