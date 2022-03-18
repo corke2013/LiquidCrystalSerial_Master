@@ -2,11 +2,9 @@
 #define LiquidCrystalSerial_Master_h
 
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
 //commands
-#define LCD_PAYLOAD_START 0x02
-#define LCD_PAYLOAD_END 0x03
+#define LCD_PAYLOAD_START 0x01
 #define LCD_BEGIN 0x80
 #define LCD_CLEAR 0x81
 #define LCD_HOME 0x82
@@ -34,77 +32,82 @@
 #define LCD_NO_LINE_WRAP 0x98
 #define LCD_MOVE_CURSOR_LEFT 0x99
 #define LCD_MOVE_CURSOR_RIGHT 0x9A
-#define LCD_ON 0x9B
-#define LCD_OFF 0x9C
+#define LCD_SET_EXEC_TIMES 0x9B
+#define LCD_ON 0x9C
+#define LCD_OFF 0x9D
 
 class LiquidCrystalSerial_Master
 {
   public:
-    LiquidCrystalSerial_Master(SoftwareSerial* lcdSerial, unsigned long lcdDelay=100);
+    LiquidCrystalSerial_Master();
 	void lcdSerialBegin(unsigned long speed);
-	uint8_t lcdBegin(uint8_t col, uint8_t row);
-	uint8_t lcdClear();
-	uint8_t lcdHome();
-	uint8_t lcdSetCursor(uint8_t col, uint8_t row);
+	byte lcdBegin(byte col, byte row);
+	byte lcdClear();
+	byte lcdHome();
+	byte lcdSetCursor(byte col, byte row);
 	void lcdWrite(byte data);
 	void lcdWrite(char* data);
-	void lcdWrite(byte* data, uint8_t nBytes);
+	void lcdWrite(byte* data, byte nBytes);
 	void lcdPrint(char* data);
-	uint8_t lcdCursor();
-	uint8_t lcdBlink();
-	uint8_t lcdNoBlink();
-	uint8_t lcdDisplay();
-	uint8_t lcdNoDisplay();
-	uint8_t lcdScrollDisplayLeft();
-	uint8_t lcdScrollDisplayRight();
-	uint8_t lcdAutoscroll();
-	uint8_t lcdNoAutoscroll();
-	uint8_t lcdLeftToRight();
-	uint8_t lcdRightToLeft();
-	uint8_t lcdCreateChar(uint8_t charval, uint8_t* charmap);
-	uint8_t lcdSetRowOffsets(uint8_t row1);
-	uint8_t lcdSetRowOffsets(uint8_t row1, uint8_t row2);
-	uint8_t lcdSetRowOffsets(uint8_t row1, uint8_t row2, uint8_t row3);
-	uint8_t lcdSetRowOffsets(uint8_t row1, uint8_t row2, uint8_t row3, uint8_t row4);
-	uint8_t lcdCommand(byte data);
-	uint8_t lcdBacklight();
-	uint8_t lcdNoBacklight();
-	uint8_t lcdLineWrap();
-	uint8_t lcdNoLineWrap();
-	uint8_t lcdMoveCursorLeft();
-	uint8_t lcdMoveCursorRight();
-	uint8_t lcdOn();
-	uint8_t lcdOff();
+	byte lcdCursor();
+	byte lcdNoCursor();
+	byte lcdBlink();
+	byte lcdNoBlink();
+	byte lcdDisplay();
+	byte lcdNoDisplay();
+	byte lcdScrollDisplayLeft();
+	byte lcdScrollDisplayRight();
+	byte lcdAutoscroll();
+	byte lcdNoAutoscroll();
+	byte lcdLeftToRight();
+	byte lcdRightToLeft();
+	byte lcdCreateChar(byte charval, byte* charmap);
+	byte lcdSetRowOffsets(byte row1);
+	byte lcdSetRowOffsets(byte row1, byte row2);
+	byte lcdSetRowOffsets(byte row1, byte row2, byte row3);
+	byte lcdSetRowOffsets(byte row1, byte row2, byte row3, byte row4);
+	byte lcdCommand(byte data);
+	byte lcdBacklight();
+	byte lcdNoBacklight();
+	byte lcdLineWrap();
+	byte lcdNoLineWrap();
+	byte lcdMoveCursorLeft();
+	byte lcdMoveCursorRight();
+	void lcdSetExecTimes(uint16_t chUs, uint16_t insU);
+	byte lcdOn();
+	byte lcdOff();
 	
   private:
-	uint8_t stringSize(char* data);
-	uint8_t sendCmd(uint8_t command);
-	uint8_t sendCmd(uint8_t command, byte* data, uint8_t nBytes);
-	SoftwareSerial* lcdSerial;
-	unsigned long lcdDelay;
-	uint8_t screenSize;
+	byte stringSize(char* data);
+	byte sendCmd(byte command);
+	byte sendCmd(byte command, byte* data, byte nBytes);
+	byte screenSize;
 	struct lcdColRowStruct {
-		uint8_t col;
-		uint8_t row;
+		byte col;
+		byte row;
 	};
 	struct lcdCreateCharStruct {
-		uint8_t charval;
-		uint8_t charmap[8];
+		byte charval;
+		byte charmap[8];
 	};
 	struct lcdSet2RowOffsetsStruct {
-		uint8_t row1;
-		uint8_t row2;
+		byte row1;
+		byte row2;
 	};
 	struct lcdSet3RowOffsetsStruct {
-		uint8_t row1;
-		uint8_t row2;
-		uint8_t row3;
+		byte row1;
+		byte row2;
+		byte row3;
 	};
 	struct lcdSet4RowOffsetsStruct {
-		uint8_t row1;
-		uint8_t row2;
-		uint8_t row3;
-		uint8_t row4;
+		byte row1;
+		byte row2;
+		byte row3;
+		byte row4;
+	};
+	struct lcdSetExecTimesStruct {
+		uint16_t chUs;
+		uint16_t insU;
 	};
 };
 
